@@ -3950,6 +3950,7 @@ input[type="submit"].btn.btn-mini {
   margin-bottom: 20px;
   margin-left: 0;
   list-style: none;
+  background-color: #003366;
 }
 
 .nav > li > a {
@@ -4612,10 +4613,11 @@ input[type="submit"].btn.btn-mini {
 
 .navbar .nav > li > a {
   float: none;
-  padding: 10px 15px 10px;
-  color: #777777;
-  text-decoration: none;
-  text-shadow: 0 1px 0 #ffffff;
+padding: 10px 15px 10px;
+color: #FFFFFF;
+text-decoration: none;
+font-size: 17px;
+font-weight: 700;
 }
 
 .navbar .nav .dropdown-toggle .caret {
@@ -4624,7 +4626,7 @@ input[type="submit"].btn.btn-mini {
 
 .navbar .nav > li > a:focus,
 .navbar .nav > li > a:hover {
-  color: #333333;
+  color:#2EC959;
   text-decoration: none;
   background-color: transparent;
 }
@@ -4632,9 +4634,10 @@ input[type="submit"].btn.btn-mini {
 .navbar .nav > .active > a,
 .navbar .nav > .active > a:hover,
 .navbar .nav > .active > a:focus {
-  color: #555555;
+  color: #FFFFFF;
+  
   text-decoration: none;
-  background-color: #e5e5e5;
+  background-color: #42C022;
   -webkit-box-shadow: inset 0 3px 8px rgba(0, 0, 0, 0.125);
      -moz-box-shadow: inset 0 3px 8px rgba(0, 0, 0, 0.125);
           box-shadow: inset 0 3px 8px rgba(0, 0, 0, 0.125);
