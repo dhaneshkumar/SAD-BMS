@@ -7,5 +7,6 @@ function callbackend(var1)
 	$.get( "backend.jsp", { type: var1, name: v1 }, function(result){
 		$("#putResult").html(result);
 	});
+	
 }
 
