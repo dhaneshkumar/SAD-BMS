@@ -11,16 +11,6 @@
     <link href="bootstrap/css/bootstrap.css" rel="stylesheet">
 	<script src="bootstrap/js/jquery.js"></script>
 	<script src="bootstrap/js/bootstrap.min.js"></script>
-	<script>
-	function EventByName(var1)
-	{
-		
-		document.getElementById("res").innerHTML=var1;
-			
-	}
-	
-	
-	</script>
 	
 	
     <style type="text/css">

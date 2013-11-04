@@ -1,0 +1,316 @@
+
+CREATE TABLE student(
+		roll_no varchar(15),
+		student_name varchar(50),
+		phone_no int,
+		email_id varchar(60) UNIQUE NOT NULL,
+		password varchar(30),
+		PRIMARY KEY(roll_no));
+
+CREATE TABLE hostel(
+		hostel_no int,
+		hostel_name varchar(50),
+		phone_no int,
+		general_secretary_roll_no varchar(15) REFERENCES student(roll_no)
+			ON DELETE SET NULL
+			ON UPDATE CASCADE,
+		cultural_councilor_roll_no varchar(15) REFERENCES student(roll_no)
+			ON DELETE SET NULL
+			ON UPDATE CASCADE,
+		technical_secretary_roll_no varchar(15) REFERENCES student(roll_no)
+			ON DELETE SET NULL
+			ON UPDATE CASCADE,
+		sports_councilor_roll_no varchar(15) REFERENCES student(roll_no)
+			ON DELETE SET NULL
+			ON UPDATE CASCADE,
+		cultural_points int,
+		technical_points int,
+		sports_points int,
+		PRIMARY KEY(hostel_no));
+	
+
+CREATE TABLE resides_in(
+		hostel_no int REFERENCES hostel(hostel_no)
+			ON DELETE CASCADE
+			ON UPDATE CASCADE,
+		roll_no varchar(15) REFERENCES student(roll_no)
+			ON DELETE CASCADE
+			ON UPDATE CASCADE,
+		room_no int,
+		PRIMARY KEY(hostel_no, roll_no));
+		
+		
+CREATE TABLE club(
+		club_name varchar(50),
+		genre varchar(50),
+		manager_roll_no varchar(15) REFERENCES student(roll_no)
+			ON DELETE SET NULL
+			ON UPDATE CASCADE,
+		convener_roll_no varchar(15) REFERENCES student(roll_no)
+			ON DELETE SET NULL
+			ON UPDATE CASCADE,
+		PRIMARY KEY(club_name));
+		
+		
+CREATE TABLE joins(
+		roll_no varchar(15) REFERENCES student(roll_no)
+			ON DELETE CASCADE
+			ON UPDATE CASCADE,
+		club_name varchar(50) REFERENCES club(club_name)
+			ON DELETE CASCADE
+			ON UPDATE CASCADE,
+		PRIMARY KEY(roll_no, club_name));
+		
+	
+CREATE TABLE sports_activity(
+		sports_activity_name varchar(50),
+		description varchar(200),
+		sports_institute_secretary_roll_no varchar(15) REFERENCES student(roll_no)
+			ON DELETE SET NULL
+			ON UPDATE CASCADE,
+		PRIMARY KEY(sports_activity_name));
+		
+		
+CREATE TABLE technical_activity(
+		technical_activity_name varchar(50),
+		description varchar(200),
+		technical_institute_secretary_roll_no varchar(15) REFERENCES student(roll_no)
+			ON DELETE SET NULL
+			ON UPDATE CASCADE,
+		PRIMARY KEY(technical_activity_name));
+
+
+CREATE TABLE cultural_activity(
+		cultural_activity_name varchar(50),
+		description varchar(200),
+		cultural_institute_secretary_roll_no varchar(15) REFERENCES student(roll_no)
+			ON DELETE SET NULL
+			ON UPDATE CASCADE,
+		PRIMARY KEY(cultural_activity_name));
+
+
+CREATE TABLE likes_sports_activity(
+		sports_activity_name varchar(50) REFERENCES sports_activity(sports_activity_name)
+			ON DELETE CASCADE
+			ON UPDATE CASCADE,
+		roll_no varchar(15) REFERENCES student(roll_no)
+			ON DELETE CASCADE
+			ON UPDATE CASCADE,
+		PRIMARY KEY(sports_activity_name, roll_no));
+		
+		
+CREATE TABLE likes_technical_activity(
+		technical_activity_name varchar(50) REFERENCES technical_activity(technical_activity_name)
+			ON DELETE CASCADE
+			ON UPDATE CASCADE,
+		roll_no varchar(15) REFERENCES student(roll_no)
+			ON DELETE CASCADE
+			ON UPDATE CASCADE,
+		PRIMARY KEY(technical_activity_name, roll_no));
+
+
+CREATE TABLE likes_cultural_activity(
+		cultural_activity_name varchar(50) REFERENCES cultural_activity(cultural_activity_name)
+			ON DELETE CASCADE
+			ON UPDATE CASCADE,
+		roll_no varchar(15) REFERENCES student(roll_no)
+			ON DELETE CASCADE
+			ON UPDATE CASCADE,
+		PRIMARY KEY(cultural_activity_name, roll_no));
+
+
+CREATE TABLE venue(
+		venue_name varchar(50),
+		location varchar(100),
+		phone_no int,
+		capacity int,
+		PRIMARY KEY(venue_name));
+		
+		
+CREATE TABLE staff(
+		staff_name varchar(50),
+		phone_no int,
+		email_id varchar(60),
+		PRIMARY KEY(staff_name, phone_no));
+
+	
+CREATE TABLE manages(
+		staff_name varchar(50),
+		phone_no int,
+		venue_name varchar(50) REFERENCES venue(venue_name)
+			ON DELETE CASCADE
+			ON UPDATE CASCADE,
+		FOREIGN KEY(staff_name, phone_no) REFERENCES staff(staff_name, phone_no)
+			ON DELETE CASCADE
+			ON UPDATE CASCADE,
+		PRIMARY KEY(staff_name, phone_no, venue_name));
+		
+		
+CREATE TABLE technical_club(
+		technical_activity_name varchar(50) REFERENCES technical_activity(technical_activity_name)
+			ON DELETE CASCADE
+			ON UPDATE CASCADE,
+		club_name varchar(50) REFERENCES club(club_name)
+			ON DELETE CASCADE
+			ON UPDATE CASCADE,
+		PRIMARY KEY(technical_activity_name, club_name));
+		
+	
+CREATE TABLE cultural_club(
+		cultural_activity_name varchar(50) REFERENCES cultural_activity(cultural_activity_name)
+			ON DELETE CASCADE
+			ON UPDATE CASCADE,
+		club_name varchar(50) REFERENCES club(club_name)
+			ON DELETE CASCADE
+			ON UPDATE CASCADE,
+		PRIMARY KEY(cultural_activity_name, club_name));
+		
+		
+CREATE TABLE events(
+		event_name varchar(100),
+		start_date date,
+		end_date date,
+		start_time time,
+		duration int,
+		PRIMARY KEY(event_name, start_date));
+		
+		
+CREATE TABLE sports_events(
+		sports_event_name varchar(100),
+		start_date date,
+		PRIMARY KEY(sports_event_name, start_date),
+		FOREIGN KEY(sports_event_name, start_date) REFERENCES events(event_name, start_date)
+			ON DELETE CASCADE
+			ON UPDATE CASCADE);
+		
+		
+CREATE TABLE technical_events(
+		technical_event_name varchar(100),
+		start_date date,
+		PRIMARY KEY(technical_event_name, start_date),
+		FOREIGN KEY(technical_event_name, start_date) REFERENCES events(event_name, start_date)
+			ON DELETE CASCADE
+			ON UPDATE CASCADE);
+		
+		
+CREATE TABLE cultural_events(
+		cultural_event_name varchar(100),
+		start_date date,
+		PRIMARY KEY(cultural_event_name, start_date),
+		FOREIGN KEY(cultural_event_name, start_date) REFERENCES events(event_name, start_date)
+			ON DELETE CASCADE
+			ON UPDATE CASCADE);
+		
+		
+CREATE TABLE academic_events(
+		academic_event_name varchar(100),
+		start_date date,
+		PRIMARY KEY(academic_event_name, start_date),
+		FOREIGN KEY(academic_event_name, start_date) REFERENCES events(event_name, start_date)
+			ON DELETE CASCADE
+			ON UPDATE CASCADE);
+		
+
+CREATE TABLE academic_talk(
+		academic_event_name varchar(100),
+		start_date date,
+		speaker varchar(50),
+		PRIMARY KEY(academic_event_name, start_date),
+		FOREIGN KEY(academic_event_name, start_date) REFERENCES academic_events(academic_event_name, start_date)
+			ON DELETE CASCADE
+			ON UPDATE CASCADE);
+
+
+CREATE TABLE hostel_position(
+		event_name varchar(100),
+		start_date date,
+		winner int,
+		first_runner_up int,
+		second_runner_up int,
+		first_point int,
+		second_point int,
+		third_point int,
+		PRIMARY KEY(event_name, start_date),
+		FOREIGN KEY(event_name, start_date) REFERENCES events(event_name, start_date)
+			ON DELETE CASCADE
+			ON UPDATE CASCADE);
+		
+		
+CREATE TABLE happens_at(
+		event_name varchar(100),
+		start_date date,
+		venue_name varchar(50) REFERENCES venue(venue_name)
+			ON DELETE CASCADE
+			ON UPDATE CASCADE,
+		PRIMARY KEY(event_name, start_date, venue_name),
+		FOREIGN KEY(event_name, start_date) REFERENCES events(event_name, start_date)
+			ON DELETE CASCADE
+			ON UPDATE CASCADE);
+		
+		
+CREATE TABLE organised_by(
+		event_name varchar(100),
+		start_date date,
+		club_name varchar(50) REFERENCES club(club_name)
+			ON DELETE CASCADE
+			ON UPDATE CASCADE,
+		PRIMARY KEY(event_name, start_date, club_name),
+		FOREIGN KEY(event_name, start_date) REFERENCES events(event_name, start_date)
+			ON DELETE CASCADE
+			ON UPDATE CASCADE);
+		
+		
+CREATE TABLE winner(
+		event_name varchar(100),
+		start_date date,
+		roll_no varchar(15) REFERENCES student(roll_no)
+			ON DELETE CASCADE
+			ON UPDATE CASCADE,
+		competition_name varchar(100),
+		PRIMARY KEY(event_name, start_date, roll_no),
+		FOREIGN KEY(event_name, start_date) REFERENCES events(event_name, start_date)
+			ON DELETE CASCADE
+			ON UPDATE CASCADE);
+		
+		
+CREATE TABLE sports_type(
+		sports_event_name varchar(100),
+		start_date date,
+		sports_activity_name varchar(100) REFERENCES sports_activity(sports_activity_name)
+			ON DELETE CASCADE
+			ON UPDATE CASCADE,
+		PRIMARY KEY(sports_event_name, start_date, sports_activity_name),
+		FOREIGN KEY(sports_event_name, start_date) REFERENCES sports_events(sports_event_name, start_date)
+			ON DELETE CASCADE
+			ON UPDATE CASCADE);
+		
+		
+CREATE TABLE technical_type(
+		technical_event_name varchar(100),
+		start_date date,
+		technical_activity_name varchar(100) REFERENCES technical_activity(technical_activity_name)
+			ON DELETE CASCADE
+			ON UPDATE CASCADE,
+		PRIMARY KEY(technical_event_name, start_date, technical_activity_name),
+		FOREIGN KEY(technical_event_name, start_date) REFERENCES technical_events(technical_event_name, start_date)
+			ON DELETE CASCADE
+			ON UPDATE CASCADE);
+
+
+CREATE TABLE cultural_type(
+		cultural_event_name varchar(100),
+		start_date date,
+		cultural_activity_name varchar(100) REFERENCES cultural_activity(cultural_activity_name)
+			ON DELETE CASCADE
+			ON UPDATE CASCADE,
+		PRIMARY KEY(cultural_event_name, start_date, cultural_activity_name),
+		FOREIGN KEY(cultural_event_name, start_date) REFERENCES cultural_events(cultural_event_name, start_date)
+			ON DELETE CASCADE
+			ON UPDATE CASCADE);
+			
+			
+CREATE TABLE admin(
+		roll_no varchar(15) REFERENCES student(roll_no)
+			ON UPDATE CASCADE,
+		password varchar(30),
+		PRIMARY KEY(roll_no));	

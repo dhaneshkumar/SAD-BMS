@@ -1,0 +1,995 @@
+QUERIES:-
+###########
+
+
+EVENT BY DATE:-
+################
+
+If date is in future:-
+###
+
+Select * FROM 
+(
+	(Select event_name, start_date, start_time, duration, end_date FROM events WHERE date>=start_date AND date<=end_date)
+	NATURAL JOIN
+	( Select * FROM happens_at WHERE event_name, start_date IN (SELECT event_name, start_date FROM events WHERE date>=start_date AND date<=end_date)	NATURAL JOIN (Select venue_name, location FROM venue))
+    NATURAL JOIN
+    ( Select * FROM organised_by WHERE event_name, start_date IN (SELECT event_name, start_date FROM events WHERE date>=start_date AND date<=end_date) NATURAL JOIN (Select club_name, manager_roll_no, convener_roll_no FROM clubs))
+)
+
+// The following 2 queries will have to be run for each tuple in the above relation returned by the query:-
+
+SELECT name, email_id, phone_no FROM student where roll_no = manager_roll_no
+SELECT name, email_id, phone_no FROM student where roll_no = convener_roll_no	    
+
+
+If date is in past:-
+###
+
+Select * FROM 
+(
+	(Select event_name, start_date, end_date FROM events WHERE date>=start_date AND date<=end_date)
+    NATURAL JOIN
+    ( Select * FROM organised_by WHERE event_name, start_date IN (SELECT event_name, start_date FROM events WHERE date>=start_date AND date<=end_date) NATURAL JOIN (Select club_name, manager_roll_no, convener_roll_no FROM clubs))
+    NATURAL JOIN
+    ( Select event_name, start_date, winner, first_runnerup, second_runnerup from hostel_position WHERE event_name, start_date IN (SELECT event_name, start_date FROM events WHERE date>=start_date AND date<=end_date))
+)
+
+// The following 3 queries will have to be run for each tuple in the above relation returned by the query:-
+
+SELECT name, email_id, phone_no FROM student where roll_no = manager_roll_no
+SELECT name, email_id, phone_no FROM student where roll_no = convener_roll_no	    
+SELECT * FROM winner WHERE winner.event_name = event_name AND winner.start_date = start_date
+	// For each tuple in this relation, run this query
+	Select name, email_id, phone_no FROM student WHERE student.roll_no = roll_no
+
+
+
+SPORTS EVENTS BY DATE:-
+#######################
+
+If date is in future:-
+###
+
+Select * FROM 
+(
+	(Select event_name, start_date, start_time, duration, end_date FROM events WHERE date>=start_date AND date<=end_date AND event_name,start_date IN (select * FROM sports_events) )
+	NATURAL JOIN
+	( Select * FROM happens_at WHERE event_name, start_date IN (SELECT event_name, start_date FROM events WHERE date>=start_date AND date<=end_date)	NATURAL JOIN (Select venue_name, location FROM venue))
+    NATURAL JOIN
+    ( Select * FROM organised_by WHERE event_name, start_date IN (SELECT event_name, start_date FROM events WHERE date>=start_date AND date<=end_date) NATURAL JOIN (Select club_name, manager_roll_no, convener_roll_no FROM clubs))
+)
+
+// The following 2 queries will have to be run for each tuple in the above relation returned by the query:-
+
+SELECT name, email_id, phone_no FROM student where roll_no = manager_roll_no
+SELECT name, email_id, phone_no FROM student where roll_no = convener_roll_no	   
+
+
+If date is in past:-
+###
+
+Select * FROM 
+(
+	(Select event_name, start_date, end_date FROM events WHERE date>=start_date AND date<=end_date AND event_name,start_date IN (select * FROM sports_events) )
+    NATURAL JOIN
+    ( Select * FROM organised_by WHERE event_name, start_date IN (SELECT event_name, start_date FROM events WHERE date>=start_date AND date<=end_date) NATURAL JOIN (Select club_name, manager_roll_no, convener_roll_no FROM clubs))
+    NATURAL JOIN
+    ( Select event_name, start_date, winner, first_runnerup, second_runnerup from hostel_position WHERE event_name, start_date IN (SELECT event_name, start_date FROM events WHERE date>=start_date AND date<=end_date))
+)
+
+// The following 3 queries will have to be run for each tuple in the above relation returned by the query:-
+
+SELECT name, email_id, phone_no FROM student where roll_no = manager_roll_no
+SELECT name, email_id, phone_no FROM student where roll_no = convener_roll_no	    
+SELECT * FROM winner WHERE winner.event_name = event_name AND winner.start_date = start_date
+	// For each tuple in this relation, run this query
+	Select name, email_id, phone_no FROM student WHERE student.roll_no = roll_no
+
+
+
+CULTURAL EVENTS BY DATE:-
+#######################
+
+If date is in future:-
+###
+
+Select * FROM 
+(
+	(Select event_name, start_date, start_time, duration, end_date FROM events WHERE date>=start_date AND date<=end_date AND event_name,start_date IN (select * FROM cultural_events) )
+	NATURAL JOIN
+	( Select * FROM happens_at WHERE event_name, start_date IN (SELECT event_name, start_date FROM events WHERE date>=start_date AND date<=end_date)	NATURAL JOIN (Select venue_name, location FROM venue))
+    NATURAL JOIN
+    ( Select * FROM organised_by WHERE event_name, start_date IN (SELECT event_name, start_date FROM events WHERE date>=start_date AND date<=end_date) NATURAL JOIN (Select club_name, manager_roll_no, convener_roll_no FROM clubs))
+)
+
+// The following 2 queries will have to be run for each tuple in the above relation returned by the query:-
+
+SELECT name, email_id, phone_no FROM student where roll_no = manager_roll_no
+SELECT name, email_id, phone_no FROM student where roll_no = convener_roll_no	   
+
+
+If date is in past:-
+###
+
+Select * FROM 
+(
+	(Select event_name, start_date, end_date FROM events WHERE date>=start_date AND date<=end_date AND event_name,start_date IN (select * FROM cultural_events) )
+    NATURAL JOIN
+    ( Select * FROM organised_by WHERE event_name, start_date IN (SELECT event_name, start_date FROM events WHERE date>=start_date AND date<=end_date) NATURAL JOIN (Select club_name, manager_roll_no, convener_roll_no FROM clubs))
+    NATURAL JOIN
+    ( Select event_name, start_date, winner, first_runnerup, second_runnerup from hostel_position WHERE event_name, start_date IN (SELECT event_name, start_date FROM events WHERE date>=start_date AND date<=end_date))
+)
+
+// The following 3 queries will have to be run for each tuple in the above relation returned by the query:-
+
+SELECT name, email_id, phone_no FROM student where roll_no = manager_roll_no
+SELECT name, email_id, phone_no FROM student where roll_no = convener_roll_no	    
+SELECT * FROM winner WHERE winner.event_name = event_name AND winner.start_date = start_date
+	// For each tuple in this relation, run this query
+	Select name, email_id, phone_no FROM student WHERE student.roll_no = roll_no
+
+
+
+TECHNICAL EVENTS BY DATE:-
+#######################
+
+If date is in future:-
+###
+
+Select * FROM 
+(
+	(Select event_name, start_date, start_time, duration, end_date FROM events WHERE date>=start_date AND date<=end_date AND event_name,start_date IN (select * FROM technical_events) )
+	NATURAL JOIN
+	( Select * FROM happens_at WHERE event_name, start_date IN (SELECT event_name, start_date FROM events WHERE date>=start_date AND date<=end_date)	NATURAL JOIN (Select venue_name, location FROM venue))
+    NATURAL JOIN
+    ( Select * FROM organised_by WHERE event_name, start_date IN (SELECT event_name, start_date FROM events WHERE date>=start_date AND date<=end_date) NATURAL JOIN (Select club_name, manager_roll_no, convener_roll_no FROM clubs))
+)
+
+// The following 2 queries will have to be run for each tuple in the above relation returned by the query:-
+
+SELECT name, email_id, phone_no FROM student where roll_no = manager_roll_no
+SELECT name, email_id, phone_no FROM student where roll_no = convener_roll_no	   
+
+
+If date is in past:-
+###
+
+Select * FROM 
+(
+	(Select event_name, start_date, end_date FROM events WHERE date>=start_date AND date<=end_date AND event_name,start_date IN (select * FROM technical_events) )
+    NATURAL JOIN
+    ( Select * FROM organised_by WHERE event_name, start_date IN (SELECT event_name, start_date FROM events WHERE date>=start_date AND date<=end_date) NATURAL JOIN (Select club_name, manager_roll_no, convener_roll_no FROM clubs))
+    NATURAL JOIN
+    ( Select event_name, start_date, winner, first_runnerup, second_runnerup from hostel_position WHERE event_name, start_date IN (SELECT event_name, start_date FROM events WHERE date>=start_date AND date<=end_date))
+)
+
+// The following 3 queries will have to be run for each tuple in the above relation returned by the query:-
+
+SELECT name, email_id, phone_no FROM student where roll_no = manager_roll_no
+SELECT name, email_id, phone_no FROM student where roll_no = convener_roll_no	    
+SELECT * FROM winner WHERE winner.event_name = event_name AND winner.start_date = start_date
+	// For each tuple in this relation, run this query
+	Select name, email_id, phone_no FROM student WHERE student.roll_no = roll_no
+
+
+
+ACADEMIC EVENTS BY DATE:-
+#######################
+
+If date is in future:-
+###
+
+Select * FROM 
+(
+	(Select event_name, start_date, start_time, duration, end_date FROM events WHERE date>=start_date AND date<=end_date AND event_name,start_date IN (select * FROM academic_events) )
+	NATURAL JOIN
+	( Select * FROM happens_at WHERE event_name, start_date IN (SELECT event_name, start_date FROM events WHERE date>=start_date AND date<=end_date)	NATURAL JOIN (Select venue_name, location FROM venue))
+    NATURAL JOIN
+    ( Select * FROM organised_by WHERE event_name, start_date IN (SELECT event_name, start_date FROM events WHERE date>=start_date AND date<=end_date) NATURAL JOIN (Select club_name, manager_roll_no, convener_roll_no FROM clubs))
+)
+
+// The following 2 queries will have to be run for each tuple in the above relation returned by the query:-
+
+SELECT name, email_id, phone_no FROM student where roll_no = manager_roll_no
+SELECT name, email_id, phone_no FROM student where roll_no = convener_roll_no	   
+
+
+If date is in past:-
+###
+
+Select * FROM 
+(
+	(Select event_name, start_date, end_date FROM events WHERE date>=start_date AND date<=end_date AND event_name,start_date IN (select * FROM academic_events) )
+    NATURAL JOIN
+    ( Select * FROM organised_by WHERE event_name, start_date IN (SELECT event_name, start_date FROM events WHERE date>=start_date AND date<=end_date) NATURAL JOIN (Select club_name, manager_roll_no, convener_roll_no FROM clubs))
+    NATURAL JOIN
+    ( Select event_name, start_date, winner, first_runnerup, second_runnerup from hostel_position WHERE event_name, start_date IN (SELECT event_name, start_date FROM events WHERE date>=start_date AND date<=end_date))
+)
+
+// The following 3 queries will have to be run for each tuple in the above relation returned by the query:-
+
+SELECT name, email_id, phone_no FROM student where roll_no = manager_roll_no
+SELECT name, email_id, phone_no FROM student where roll_no = convener_roll_no	    
+SELECT * FROM winner WHERE winner.event_name = event_name AND winner.start_date = start_date
+	// For each tuple in this relation, run this query
+	Select name, email_id, phone_no FROM student WHERE student.roll_no = roll_no
+
+###########################################################################################################################################
+
+UPCOMING EVENTS BY NAME:-
+#######################
+
+Select * FROM 
+((Select event_name, start_date, start_time, duration, end_date FROM events WHERE event_name = name)
+	NATURAL JOIN
+	( (Select * FROM happens_at WHERE event_name = name) NATURAL JOIN (Select venue_name, location FROM venue))
+    NATURAL JOIN
+    ( (Select * FROM organised_by WHERE event_name = name) NATURAL JOIN (Select club_name, manager_roll_no, convener_roll_no FROM clubs)));
+
+// The following 2 queries will have to be run for each tuple in the above relation returned by the query:-
+
+SELECT student_name, email_id, phone_no FROM student where roll_no = manager_roll_no
+SELECT student_name, email_id, phone_no FROM student where roll_no = convener_roll_no	   
+
+
+For Dropdown:-
+###
+Select event_name FROM events WHERE start_date>=current_date
+
+
+
+
+# correct code :
+
+Select * FROM ((Select event_name, start_date, start_time, duration, end_date FROM events WHERE event_name = name) AS A
+	NATURAL JOIN
+	( (Select * FROM happens_at WHERE event_name = name) AS B NATURAL JOIN (Select venue_name, location FROM venue) AS C) AS D
+    NATURAL JOIN
+    ( (Select * FROM organised_by WHERE event_name = name) AS E NATURAL JOIN (Select club_name, manager_roll_no, convener_roll_no FROM club) AS F) AS G) AS H;
+
+
+
+
+
+
+
+UPCOMING SPORTS EVENTS BY NAME:-
+######################################################################################################################
+
+Select * FROM 
+(
+	(Select event_name, start_date, start_time, duration, end_date FROM events WHERE event_name = name AND event_name, start_date IN ( Select * FROM sports_event))
+	NATURAL JOIN
+	( (Select * FROM happens_at WHERE event_name = name) NATURAL JOIN (Select venue_name, location FROM venue))
+    NATURAL JOIN
+    ( (Select * FROM organised_by WHERE event_name = name) NATURAL JOIN (Select club_name, manager_roll_no, convener_roll_no FROM clubs))
+)
+
+// The following 2 queries will have to be run for each tuple in the above relation returned by the query:-
+
+SELECT name, email_id, phone_no FROM student where roll_no = manager_roll_no
+SELECT name, email_id, phone_no FROM student where roll_no = convener_roll_no	   
+
+
+For Dropdown:-
+###
+Select sports_event_name FROM sports_events WHERE start_date>=current_date
+
+
+
+UPCOMING CULTURAL EVENTS BY NAME:-
+################################
+
+Select * FROM 
+(
+	(Select event_name, start_date, start_time, duration, end_date FROM events WHERE event_name = name AND event_name, start_date IN ( Select * FROM cultural_event))
+	NATURAL JOIN
+	( (Select * FROM happens_at WHERE event_name = name) NATURAL JOIN (Select venue_name, location FROM venue))
+    NATURAL JOIN
+    ( (Select * FROM organised_by WHERE event_name = name) NATURAL JOIN (Select club_name, manager_roll_no, convener_roll_no FROM clubs))
+)
+
+// The following 2 queries will have to be run for each tuple in the above relation returned by the query:-
+
+SELECT name, email_id, phone_no FROM student where roll_no = manager_roll_no
+SELECT name, email_id, phone_no FROM student where roll_no = convener_roll_no	
+
+
+For Dropdown:-
+###
+Select cultural_event_name FROM cultural_events WHERE start_date>=current_date
+
+
+
+UPCOMING TECHNICAL EVENTS BY NAME:-
+######################
+
+Select * FROM 
+(
+	(Select event_name, start_date, start_time, duration, end_date FROM events WHERE event_name = name AND event_name, start_date IN ( Select * FROM technical_event))
+	NATURAL JOIN
+	( (Select * FROM happens_at WHERE event_name = name) NATURAL JOIN (Select venue_name, location FROM venue))
+    NATURAL JOIN
+    ( (Select * FROM organised_by WHERE event_name = name) NATURAL JOIN (Select club_name, manager_roll_no, convener_roll_no FROM clubs))
+)
+
+// The following 2 queries will have to be run for each tuple in the above relation returned by the query:-
+
+SELECT name, email_id, phone_no FROM student where roll_no = manager_roll_no
+SELECT name, email_id, phone_no FROM student where roll_no = convener_roll_no	
+
+
+For Dropdown:-
+###
+Select technical_event_name FROM technical_events WHERE start_date>=current_date
+
+
+
+UPCOMING ACADEMIC EVENTS BY NAME:-
+######################
+
+Select * FROM 
+(
+	(Select event_name, start_date, start_time, duration, end_date FROM events WHERE event_name = name AND event_name, start_date IN ( Select * FROM academic_event))
+	NATURAL JOIN
+	( (Select * FROM happens_at WHERE event_name = name) NATURAL JOIN (Select venue_name, location FROM venue))
+    NATURAL JOIN
+    ( (Select * FROM organised_by WHERE event_name = name) NATURAL JOIN (Select club_name, manager_roll_no, convener_roll_no FROM clubs))
+)
+
+// The following 2 queries will have to be run for each tuple in the above relation returned by the query:-
+
+SELECT name, email_id, phone_no FROM student where roll_no = manager_roll_no
+SELECT name, email_id, phone_no FROM student where roll_no = convener_roll_no
+
+
+For Dropdown:-
+###
+Select academic_event_name FROM academic_events WHERE start_date>=current_date
+
+
+
+###########################################################################################################################################
+
+RESULTS OF EVENTS:-
+################
+
+Select * FROM 
+(
+	(Select event_name, start_date, end_date FROM events WHERE event_name = name)
+    NATURAL JOIN
+    ( Select * FROM organised_by WHERE event_name = name NATURAL JOIN (Select club_name, manager_roll_no, convener_roll_no FROM clubs))
+    NATURAL JOIN
+    ( Select event_name, start_date, winner, first_runnerup, second_runnerup from hostel_position WHERE event_name = name)
+)
+
+// The following 3 queries will have to be run for each tuple in the above relation returned by the query:-
+
+SELECT name, email_id, phone_no FROM student where roll_no = manager_roll_no
+SELECT name, email_id, phone_no FROM student where roll_no = convener_roll_no	    
+SELECT * FROM winner WHERE winner.event_name = event_name AND winner.start_date = start_date
+	// For each tuple in this relation, run this query
+	Select name, email_id, phone_no FROM student WHERE student.roll_no = roll_no
+
+
+For Dropdown:-
+###
+Select event_name FROM events WHERE end_date < current_date AND event_name, start_date NOT IN (Select * FROM academic_events)
+
+
+
+RESULTS OF SPORTS EVENTS:-
+################
+
+Select * FROM 
+(
+	(Select event_name, start_date, end_date FROM events WHERE event_name = name AND event_name, start_date IN (select * FROM sports_events))
+    NATURAL JOIN
+    ( Select * FROM organised_by WHERE event_name = name NATURAL JOIN (Select club_name, manager_roll_no, convener_roll_no FROM clubs))
+    NATURAL JOIN
+    ( Select event_name, start_date, winner, first_runnerup, second_runnerup from hostel_position WHERE event_name = name)
+)
+
+// The following 3 queries will have to be run for each tuple in the above relation returned by the query:-
+
+SELECT name, email_id, phone_no FROM student where roll_no = manager_roll_no
+SELECT name, email_id, phone_no FROM student where roll_no = convener_roll_no	    
+SELECT * FROM winner WHERE winner.event_name = event_name AND winner.start_date = start_date
+	// For each tuple in this relation, run this query
+	Select name, email_id, phone_no FROM student WHERE student.roll_no = roll_no
+	
+	
+For Dropdown:-
+###
+Select sports_event_name FROM sports_events WHERE end_date < current_date
+	
+
+	
+RESULTS OF CULTURAL EVENTS:-
+################
+
+Select * FROM 
+(
+	(Select event_name, start_date, end_date FROM events WHERE event_name = name AND event_name, start_date IN (select * FROM cultural_events))
+    NATURAL JOIN
+    ( Select * FROM organised_by WHERE event_name = name NATURAL JOIN (Select club_name, manager_roll_no, convener_roll_no FROM clubs))
+    NATURAL JOIN
+    ( Select event_name, start_date, winner, first_runnerup, second_runnerup from hostel_position WHERE event_name = name)
+)
+
+// The following 3 queries will have to be run for each tuple in the above relation returned by the query:-
+
+SELECT name, email_id, phone_no FROM student where roll_no = manager_roll_no
+SELECT name, email_id, phone_no FROM student where roll_no = convener_roll_no	    
+SELECT * FROM winner WHERE winner.event_name = event_name AND winner.start_date = start_date
+	// For each tuple in this relation, run this query
+	Select name, email_id, phone_no FROM student WHERE student.roll_no = roll_no
+	
+	
+For Dropdown:-
+###
+Select cultural_event_name FROM cultural_events WHERE end_date < current_date
+
+
+	
+RESULTS OF TECHNICAL EVENTS:-
+################
+
+Select * FROM 
+(
+	(Select event_name, start_date, end_date FROM events WHERE event_name = name AND event_name, start_date IN (select * FROM technical_events))
+    NATURAL JOIN
+    ( Select * FROM organised_by WHERE event_name = name NATURAL JOIN (Select club_name, manager_roll_no, convener_roll_no FROM clubs))
+    NATURAL JOIN
+    ( Select event_name, start_date, winner, first_runnerup, second_runnerup from hostel_position WHERE event_name = name)
+)
+
+// The following 3 queries will have to be run for each tuple in the above relation returned by the query:-
+
+SELECT name, email_id, phone_no FROM student where roll_no = manager_roll_no
+SELECT name, email_id, phone_no FROM student where roll_no = convener_roll_no	    
+SELECT * FROM winner WHERE winner.event_name = event_name AND winner.start_date = start_date
+	// For each tuple in this relation, run this query
+	Select name, email_id, phone_no FROM student WHERE student.roll_no = roll_no
+	
+	
+For Dropdown:-
+###
+Select technical_event_name FROM technical_events WHERE end_date < current_date
+	
+	
+##########################################################################################################################################
+
+UPCOMING EVENTS BY GENRE:-
+########################
+
+Select * FROM 
+(
+	(Select event_name, start_date, start_time, duration, end_date FROM events WHERE event_name, start_date IN (Select sports_event_name, start_date FROM sports_type WHERE sports_activity_name = activity_name) OR event_name, start_date IN (Select technical_event_name, start_date FROM technical_type WHERE technical_activity_name = activity_name) OR event_name, start_date IN (Select cultural_event_name, start_date FROM cultural_type WHERE cultural_activity_name = activity_name)) 
+	NATURAL JOIN
+	( Select * FROM happens_at WHERE event_name, start_date IN (Select sports_event_name, start_date FROM sports_type WHERE sports_activity_name = activity_name) OR event_name, start_date IN (Select technical_event_name, start_date FROM technical_type WHERE technical_activity_name = activity_name) OR event_name, start_date IN (Select cultural_event_name, start_date FROM cultural_type WHERE cultural_activity_name = activity_name) NATURAL JOIN (Select venue_name, location FROM venue))
+    NATURAL JOIN
+    ( Select * FROM organised_by WHERE event_name, start_date IN (Select sports_event_name, start_date FROM sports_type WHERE sports_activity_name = activity_name) OR event_name, start_date IN (Select technical_event_name, start_date FROM technical_type WHERE technical_activity_name = activity_name) OR event_name, start_date IN (Select cultural_event_name, start_date FROM cultural_type WHERE cultural_activity_name = activity_name) NATURAL JOIN (Select club_name, manager_roll_no, convener_roll_no FROM clubs))
+)
+
+
+For Dropdown:-
+###
+(Select sports_activity_name AS activity_name FROM sports_activity)
+UNION
+(Select cultural_activity_name AS activity_name FROM cultural_activity)
+UNION
+(Select technical_activity_name AS activity_name FROM technical_activity)
+
+
+
+UPCOMING SPORTS EVENTS BY GENRE:-
+###############################
+
+Select * FROM 
+(
+	(Select event_name, start_date, start_time, duration, end_date FROM events WHERE event_name, start_date IN (Select sports_event_name, start_date FROM sports_type WHERE sports_activity_name = activity_name))
+	NATURAL JOIN
+	( Select * FROM happens_at WHERE event_name, start_date IN (Select sports_event_name, start_date FROM sports_type WHERE sports_activity_name = activity_name) NATURAL JOIN (Select venue_name, location FROM venue))
+    NATURAL JOIN
+    ( Select * FROM organised_by WHERE event_name, start_date IN (Select sports_event_name, start_date FROM sports_type WHERE sports_activity_name = activity_name) NATURAL JOIN (Select club_name, manager_roll_no, convener_roll_no FROM clubs))
+)
+
+// The following 2 queries will have to be run for each tuple in the above relation returned by the query:-
+
+SELECT name, email_id, phone_no FROM student where roll_no = manager_roll_no
+SELECT name, email_id, phone_no FROM student where roll_no = convener_roll_no
+
+
+For Dropdown:-
+###
+Select sports_activity_name FROM sports_activity
+	
+
+
+UPCOMING CULTURAL EVENTS BY GENRE:-
+#################################
+
+Select * FROM 
+(
+	(Select event_name, start_date, start_time, duration, end_date FROM events WHERE event_name, start_date IN (Select cultural_event_name, start_date FROM cultural_type WHERE cultural_activity_name = activity_name))
+	NATURAL JOIN
+	( Select * FROM happens_at WHERE event_name, start_date IN (Select cultural_event_name, start_date FROM cultural_type WHERE cultural_activity_name = activity_name) NATURAL JOIN (Select venue_name, location FROM venue))
+    NATURAL JOIN
+    ( Select * FROM organised_by WHERE event_name, start_date IN (Select cultural_event_name, start_date FROM cultural_type WHERE cultural_activity_name = activity_name) NATURAL JOIN (Select club_name, manager_roll_no, convener_roll_no FROM clubs))
+)
+
+// The following 2 queries will have to be run for each tuple in the above relation returned by the query:-
+
+SELECT name, email_id, phone_no FROM student where roll_no = manager_roll_no
+SELECT name, email_id, phone_no FROM student where roll_no = convener_roll_no
+
+
+For Dropdown:-
+###
+Select cultural_activity_name FROM cultural_activity
+
+
+
+UPCOMING TECHNICAL EVENTS BY GENRE:-
+##################################
+
+Select * FROM 
+(
+	(Select event_name, start_date, start_time, duration, end_date FROM events WHERE event_name, start_date IN (Select technical_event_name, start_date FROM technical_type WHERE technical_activity_name = activity_name))
+	NATURAL JOIN
+	( Select * FROM happens_at WHERE event_name, start_date IN (Select technical_event_name, start_date FROM technical_type WHERE technical_activity_name = activity_name) NATURAL JOIN (Select venue_name, location FROM venue))
+    NATURAL JOIN
+    ( Select * FROM organised_by WHERE event_name, start_date IN (Select technical_event_name, start_date FROM technical_type WHERE technical_activity_name = activity_name) NATURAL JOIN (Select club_name, manager_roll_no, convener_roll_no FROM clubs))
+)
+
+// The following 2 queries will have to be run for each tuple in the above relation returned by the query:-
+
+SELECT name, email_id, phone_no FROM student where roll_no = manager_roll_no
+SELECT name, email_id, phone_no FROM student where roll_no = convener_roll_no
+
+
+For Dropdown:-
+###
+Select technical_activity_name FROM technical_activity
+
+
+##########################################################################################################################################
+
+CURRENT HOSTEL STANDING:-
+#######################
+
+SELECT event_name, winner, first_runnerup, second_runnerup, first_point, second_point, third_point FROM hostel_position
+
+
+
+CURRENT SPORTS HOSTEL STANDING:-
+##############################
+
+SELECT event_name, winner, first_runnerup, second_runnerup, first_point, second_point, third_point FROM hostel_position WHERE event_name, start_date IN (SELECT * FROM sports_events)
+
+
+
+CURRENT CULTURAL HOSTEL STANDING:-
+################################
+
+SELECT event_name, winner, first_runnerup, second_runnerup, first_point, second_point, third_point FROM hostel_position WHERE event_name, start_date IN (SELECT * FROM cultural_events)
+
+
+
+CURRENT TECHNICAL HOSTEL STANDING:-
+#################################
+
+SELECT event_name, winner, first_runnerup, second_runnerup, first_point, second_point, third_point FROM hostel_position WHERE event_name, start_date IN (SELECT * FROM technical_events)
+
+##########################################################################################################################################
+
+VENUE DETAILS:-
+#############
+
+SELECT * FROM
+(
+	(SELECT venue_name, location, venue.phone_no AS ph1 FROM venue)
+	NATURAL JOIN 
+	(SELECT venue_name, staff_name, staff.phone_no AS ph2, email_id FROM staff NATURAL JOIN manages)
+)
+
+
+##########################################################################################################################################
+
+SHOW COUNCIL:-
+#############
+
+For Institute Secretaries:-
+###
+
+SELECT * FROM
+(
+	((SELECT sports_activity_name AS activity_name, sports_institute_secretary_roll_no AS roll_no FROM sports_activity)
+	NATURAL JOIN
+	(SELECT roll_no, name, email_id, phone_no FROM student WHERE roll_no IN (SELECT sports_institute_secretary_roll_no FROM sports_activity)))
+	UNION
+	((SELECT cultural_activity_name AS activity_name, cultural_institute_secretary_roll_no AS roll_no FROM cultural_activity)
+	NATURAL JOIN
+	(SELECT roll_no, name, email_id, phone_no FROM student WHERE roll_no IN (SELECT cultural_institute_secretary_roll_no FROM cultural_activity)))
+	UNION
+	((SELECT technical_activity_name AS activity_name, technical_institute_secretary_roll_no AS roll_no FROM technical_activity)
+	NATURAL JOIN
+	(SELECT roll_no, name, email_id, phone_no FROM student WHERE roll_no IN (SELECT technical_institute_secretary_roll_no FROM technical_activity)))
+)
+
+For Clubs
+###
+
+SELECT club_name, manager_roll_number, convener_roll_no FROM club
+
+// For each tuple in the relation returned by the query, we will run the following queries:-
+
+SELECT name, phone_no, email_id FROM student WHERE roll_no = manager_roll_no
+SELECT name, phone_no, email_id FROM student WHERE roll_no = convener_roll_no
+
+// Here we don't need to run for GENERAL secretaries because they will also be covered by the above queries
+
+
+
+SHOW SPORTS COUNCIL:-
+################
+
+For Institute Secretaries:-
+###
+
+SELECT * FROM
+(
+	(SELECT sports_activity_name, sports_institute_secretary_roll_no AS roll_no FROM sports_activity)
+	NATURAL JOIN
+	(SELECT roll_no, name, email_id, phone_no FROM student WHERE roll_no IN (SELECT sports_institute_secretary_roll_no FROM sports_activity))
+)
+
+// There will be a special club named sports_council which will have General Secretary Sports Affairs as its Manager
+SELECT name, email_id, phone_no FROM student WHERE roll_no = (SELECT manager_roll_no FROM club WHERE club_name = "sports_council")
+
+
+
+SHOW CULTURAL COUNCIL:-
+################
+
+For Institute Secretaries:-
+###
+
+SELECT * FROM
+(
+	(SELECT cultural_activity_name, cultural_institute_secretary_roll_no AS roll_no FROM cultural_activity)
+	NATURAL JOIN
+	(SELECT roll_no, name, email_id, phone_no FROM student WHERE roll_no IN (SELECT cultural_institute_secretary_roll_no FROM cultural_activity))
+)
+
+
+For Cultural Club:-
+###
+
+SELECT club_name, manager_roll_no, convener_roll_no FROM club WHERE club_name IN (SELECT club_name FROM cultural_club)
+
+// For each tuple in the above relation, we will run following 2 queries
+
+SELECT name, email_id, phone_no FROM student WHERE roll_no = manager_roll_no
+SELECT name, email_id, phone_no FROM student WHERE roll_no = convener_roll_no
+
+
+// There will be a special club named cultural_council which will have General Secretary Cultural Affairs as its Manager
+SELECT name, email_id, phone_no FROM student WHERE roll_no = (SELECT manager_roll_no FROM club WHERE club_name = 'cultural_council')
+
+
+
+SHOW TECHNICAL COUNCIL:-
+################
+
+For Institute Secretaries:-
+###
+
+SELECT * FROM
+(	
+	(SELECT technical_activity_name, technical_institute_secretary_roll_no AS roll_no FROM technical_activity)
+	NATURAL JOIN
+	(SELECT roll_no, name, email_id, phone_no FROM student WHERE roll_no IN (SELECT technical_institute_secretary_roll_no FROM 			technical_activity))
+)
+
+
+For Cultural Club:-
+###
+
+SELECT club_name, manager_roll_no, convener_roll_no FROM club WHERE club_name IN (SELECT club_name FROM technical_club)
+
+
+// For each tuple in the above relation, we will run following 2 queries
+
+SELECT name, email_id, phone_no FROM student WHERE roll_no = manager_roll_no
+SELECT name, email_id, phone_no FROM student WHERE roll_no = convener_roll_no
+
+
+
+SHOW ACADEMIC COUNCIL
+#####################
+
+SELECT name, email_id, phone_no FROM student WHERE roll_no = (SELECT manager_roll_no FROM club WHERE club_name = 'academic_council')
+SELECT name, email_id, phone_no FROM student WHERE roll_no = (SELECT convener_roll_no FROM club WHERE club_name = 'academic_council')
+
+
+##########################################################################################################################################
+
+SHOW STUDENT DETAILS:-
+####################
+
+SELECT * FROM
+(
+	(SELECT student_name, roll_no, phone_no, email_id FROM student WHERE sudent_name = name)
+	NATURAL LEFT OUTER JOIN
+	(SELECT * FROM likes_cultural_activity WHERE roll_no IN (SELECT roll_no FROM student WHERE sudent_name = name))
+	NATURAL LEFT OUTER JOIN
+	(SELECT * FROM likes_sports_activity WHERE roll_no IN (SELECT roll_no FROM student WHERE sudent_name = name))
+	NATURAL LEFT OUTER JOIN
+	(SELECT * FROM likes_technical_activity WHERE roll_no IN (SELECT roll_no FROM student WHERE sudent_name = name))
+	NATURAL LEFT OUTER JOIN
+	(SELECT * FROM joins WHERE roll_no IN (SELECT roll_no FROM student WHERE sudent_name = name))
+	NATURAL LEFT OUTER JOIN
+	(SELECT hostel_no, room_no, roll_no FROM resides_in WHERE roll_no IN (SELECT roll_no FROM student WHERE student_name = name))
+)
+
+
+##########################################################################################################################################
+
+SHOW HOSTEL DETAILS:-
+####################
+
+SELECT * FROM hostel WHERE hostel_no = h_no;
+
+
+Dropdown:-
+###
+SELECT hostel_no FROM hostel;
+
+##########################################################################################################################################
+
+ASSEMBLE TEAMS:-
+##############
+
+SELECT student_name, roll_no, phone_no, email_id FROM student WHERE roll_no IN (SELECT roll_no FROM resides_in WHERE hostel_no = h_no)  AND roll_no IN (
+				(SELECT roll_no FROM likes_sports_activity WHERE sports_activity_name = category) 
+				UNION 
+				(SELECT roll_no FROM likes_technical_activity WHERE technical_activity_name = category) 
+				UNION 
+				(SELECT roll_no FROM likes_cultural_activity WHERE cultural_activity_name = category)
+			   )
+
+
+For Dropdown:-
+###
+SELECT hostel_no FROM hostel;
+
+(SELECT sports_activity_name AS activity_name FROM sports_activity)
+UNION
+(SELECT technical_activity_name AS activity_name FROM technical_activity)
+UNION
+(SELECT cultural_activity_name AS activity_name FROM cultural_activity);
+
+
+
+##########################################################################################################################################
+
+ACADEMIC TALKS:-
+##############
+
+Select * FROM 
+(
+	(Select event_name, start_date, start_time, duration FROM events WHERE event_name, start_date IN (Select academic_event_name, start_date FROM academic_talk WHERE speaker = speaker_name)) 
+	NATURAL JOIN
+	( Select * FROM happens_at WHERE event_name, start_date IN (Select academic_event_name, start_date FROM academic_talk WHERE speaker = speaker_name)) 
+    NATURAL JOIN
+    ( Select * FROM organised_by WHERE event_name, start_date IN (Select academic_event_name, start_date FROM academic_talk WHERE speaker = speaker_name)) 
+)
+
+
+For Dropdown:-
+###
+SELECT DISTINCT speaker FROM academic_talk
+
+
+##########################################################################################################################################
+
+LOGIN:-
+#####
+
+As Admin:
+###
+
+SELECT * FROM admin WHERE roll_no = username AND password = passwd
+
+As normal user:
+###
+
+SELECT * FROM student WHERE roll_no = username AND password = passwd
+
+##########################################################################################################################################
+
+SCHEDULING AN EVENT:-
+###################
+
+// insert if returns null otherwise give the interfering event name and start_date to the user
+
+SELECT event_name, start_date FROM events WHERE event_name, start_date IN (SELECT event_date, start_date FROM happens_at WHERE venue_name = our_venue_name) AND (start_date>current_date OR (start_date = current_date AND start_time>current_time) ) AND 
+(
+	(start_date>=our_start_date AND start_date<=our_end_date AND
+		 (
+		 	(start_time >= our_start_time AND start_time <= our_start_time + (INTERVAL '1 min') * our_duration)
+			OR
+			((start_time + (INTERVAL '1 min')* duration) >=our_start_time AND ((start_time + (INTERVAL '1 min')* duration) <= (our_start_time + (INTERVAL '1 min') * our_duration)))
+			OR
+			( our_start_time>=start_time AND (our_start_time + (INTERVAL '1 min') * our_duration) <= (start_time + (INTERVAL '1 min') * duration))
+		 )
+	)
+	OR 
+	(end_date>=our_start_date AND end_date<=our_end_date AND
+		 (
+		 	(start_time >= our_start_time AND start_time <= our_start_time + (INTERVAL '1 min') * our_duration)
+			OR
+			((start_time + (INTERVAL '1 min')* duration) >=our_start_time AND (start_time + (INTERVAL '1 min')* duration) <= (our_start_time + (INTERVAL '1 min') * our_duration))
+			OR
+			( our_start_time>=start_time AND (our_start_time + (INTERVAL '1 min') * our_duration) <= (start_time + (INTERVAL '1 min') * duration))
+		 )
+	)
+	OR
+	(our_start_date>=start_date AND (our_start_date + (INTERVAL '1 min') * our_duration) <= (start_date + (INTERVAL '1 min') * duration)
+	AND
+		(
+		 	(start_time >= our_start_time AND start_time <= our_start_time + (INTERVAL '1 min') * our_duration)
+			OR
+			((start_time + (INTERVAL '1 min')* duration) >=our_start_time AND (start_time + (INTERVAL '1 min')* duration) <= (our_start_time + (INTERVAL '1 min') * our_duration))
+			OR
+			( our_start_time>=start_time AND (our_start_time + (INTERVAL '1 min') * our_duration) <= (start_time + (INTERVAL '1 min') * duration))
+		)
+	)
+)
+	
+	
+// If the above query returned NULL, then
+
+INSERT INTO events VALUES (our_event_name, our_start_date, our_end_date, our_start_time, our_duration)
+INSERT INTO happens_at VALUES (our_event_name, our_start_date, our_venue_name)
+INSERT INTO organised_by VALUES (our_event_name, our_start_date, our_club_name)
+INSERT INTO sports_type VALUES (our_event_name, our_start_date, our_activity_name) WHERE our_activity_name IN (SELECT sports_activity_name FROM sports_activity)
+INSERT INTO cultural_type VALUES (our_event_name, our_start_date, our_activity_name) WHERE our_activity_name IN (SELECT cultural_activity_name FROM cultural_activity)
+INSERT INTO technical_type VALUES (our_event_name, our_start_date, our_activity_name) WHERE our_activity_name IN (SELECT technical_activity_name FROM technical_activity)
+
+
+##########################################################################################################################################
+	
+CHANGING DETAILS OF AN EVENT:-
+############################
+
+//  if query returns null then remove the old one and insert new, otherwise give the interfering event name and start_date to the user
+
+SELECT event_name, start_date FROM events WHERE event_name, start_date IN (SELECT event_date, start_date FROM happens_at WHERE venue_name = new_venue_name) AND (start_date>current_date OR (start_date = current_date AND start_time>current_time) ) AND 
+(
+	(start_date>=new_start_date AND start_date<=new_end_date AND
+		 (
+		 	(start_time >= new_start_time AND start_time <= new_start_time + (INTERVAL '1 min') * new_duration)
+			OR
+			((start_time + (INTERVAL '1 min')* duration) >=new_start_time AND ((start_time + (INTERVAL '1 min')* duration) <= (new_start_time + (INTERVAL '1 min') * new_duration)))
+			OR
+			( new_start_time>=start_time AND (new_start_time + (INTERVAL '1 min') * new_duration) <= (start_time + (INTERVAL '1 min') * duration))
+		 )
+	)
+	OR 
+	(end_date>=new_start_date AND end_date<=new_end_date AND
+		 (
+		 	(start_time >= new_start_time AND start_time <= new_start_time + (INTERVAL '1 min') * new_duration)
+			OR
+			((start_time + (INTERVAL '1 min')* duration) >=new_start_time AND (start_time + (INTERVAL '1 min')* duration) <= (new_start_time + (INTERVAL '1 min') * new_duration))
+			OR
+			( new_start_time>=start_time AND (new_start_time + (INTERVAL '1 min') * new_duration) <= (start_time + (INTERVAL '1 min') * duration))
+		 )
+	)
+	OR
+	(new_start_date>=start_date AND (new_start_date + (INTERVAL '1 min') * new_duration) <= (start_date + (INTERVAL '1 min') * duration)
+	AND
+		(
+		 	(start_time >= new_start_time AND start_time <= new_start_time + (INTERVAL '1 min') * new_duration)
+			OR
+			((start_time + (INTERVAL '1 min')* duration) >=new_start_time AND (start_time + (INTERVAL '1 min')* duration) <= (new_start_time + (INTERVAL '1 min') * new_duration))
+			OR
+			( new_start_time>=start_time AND (new_start_time + (INTERVAL '1 min') * new_duration) <= (start_time + (INTERVAL '1 min') * duration))
+		)
+	)
+)
+	
+	
+// If the above query returned NULL, then
+
+DROP FROM happens_at WHERE event_name = old_event_name AND start_date = old_start_date
+DROP FROM organised_by WHERE event_name = old_event_name AND start_date = old_start_date
+DROP FROM sports_type WHERE event_name = old_event_name AND start_date = old_start_date
+DROP FROM cultural_type WHERE event_name = old_event_name AND start_date = old_start_date
+DROP FROM technical_type WHERE event_name = old_event_name AND start_date = old_start_date
+DROP FROM events WHERE event_name = old_event_name AND start_date = old_start_date
+INSERT INTO events VALUES (new_event_name, new_start_date, new_end_date, new_start_time, new_duration)
+INSERT INTO happens_at VALUES (new_event_name, new_start_date, new_venue_name)
+INSERT INTO organised_by VALUES (new_event_name, new_start_date, new_club_name)
+INSERT INTO sports_type VALUES (new_event_name, new_start_date, new_activity_name) WHERE new_activity_name IN (SELECT sports_activity_name FROM sports_activity)
+INSERT INTO cultural_type VALUES (new_event_name, new_start_date, new_activity_name) WHERE new_activity_name IN (SELECT cultural_activity_name FROM cultural_activity)
+INSERT INTO technical_type VALUES (new_event_name, new_start_date, new_activity_name) WHERE new_activity_name IN (SELECT technical_activity_name FROM technical_activity)
+	
+	
+##########################################################################################################################################
+	
+SENDING REMINDER MAILS:-
+#####################
+	
+SELECT email_id FROM student WHERE roll_no IN
+	(
+		(SELECT roll_no FROM likes_sports_activity WHERE activity_name = sports_activity_name)
+		UNION
+		(SELECT roll_no FROM likes_cultural_activity WHERE activity_name = cultural_activity_name)
+		UNION
+		(SELECT roll_no FROM likes_technical_activity WHERE activity_name = technical_activity_name)
+	)
+
+
+
+	
+For Dropdown:-
+###
+(SELECT sports_activity_name AS activity_name FROM sports_activity_name)
+UNION
+(SELECT cultural_activity_name AS activity_name FROM cultural_activity_name)
+UNION
+(SELECT technical_activity_name AS activity_name FROM technical_activity_name)
+	
+	
+##########################################################################################################################################
+	
+QUERY FOR JOINING CLUB:-
+######################
+
+INSERT INTO joins VALUES(roll_no, club_name)
+
+
+For Dropdown:-
+###
+SELECT DISTINCT club_name FROM clubs
+
+
+
+QUERY FOR LIKING SPORTS ACTIVITY:-
+################################	
+
+INSERT INTO likes_sports_activity(sports_activity_name, roll_no)
+
+
+For Dropdown:-
+###
+SELECT DISTINCT sports_activity_name FROM sports_activity
+
+
+
+QUERY FOR LIKING CULTURAL ACTIVITY:-
+#################################
+
+INSERT INTO likes_cultural_activity(cultural_activity_name, roll_no)
+
+
+For Dropdown:-
+###
+SELECT DISTINCT cultural_activity_name FROM cultural_activity
+	
+	
+	
+QUERY FOR LIKING TECHNICAL ACTIVITY:-
+#################################
+
+INSERT INTO likes_technical_activity(technical_activity_name, roll_no)
+
+
+For Dropdown:-
+###
+SELECT DISTINCT technical_activity_name FROM technical_activity	
+

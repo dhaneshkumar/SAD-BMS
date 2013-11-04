@@ -1,0 +1,51 @@
+import java.io.*;
+import java.util.*;
+import javax.servlet.http.*;
+import javax.servlet.*;
+
+public class First extends HttpServlet  
+  {
+    		
+    public void doGet(HttpServletRequest request,HttpServletResponse response)
+					        throws IOException, ServletException // This method is called whenver we invoke this servlet. 
+	// Use "request" to read incoming HTTP headers
+	// Use "response" to specify the HTTP response line and headers
+  	{
+        response.setContentType("text/html");
+        PrintWriter out = response.getWriter(); // Use "out" to send content to browser
+        out.println("<html>");
+        out.println("<body bgcolor=\"white\">");
+        out.println("<head>");
+        out.println("<title>  Survey  </title>");
+        out.println("</head>");
+        out.println("<body>");
+        out.println("<h3 align=\"center\">I<sup>st</sup> Servlet </h3><hr>");
+		if(request.getParameter("SUBMIT")==null){     // value of SUBMIT parameter determines which link or url is used invoking servlet 
+			form1(request, response, out);
+		} 
+
+		else if(request.getParameter("SUBMIT").toString().equals("BACK")){
+				form1(request,response,out);    // Input Form
+		}
+		else {
+                        	form2(request, response, out);  // Result form
+        }
+	out.println("</body>");
+        out.println("</html>");
+        
+    }
+    	
+
+
+    	public void doPost(HttpServletRequest request,HttpServletResponse response)
+        	throws IOException, ServletException
+    	{
+        	doGet(request, response);
+    	}
+
+	
+		
+		
+		
+	
+}

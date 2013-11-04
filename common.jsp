@@ -1,4 +1,11 @@
+<%@ page import="sadbms.run" %>
+<% 
+		run node=new run();
+%>
 <!DOCTYPE html>
+
+
+
 <html lang="en">
   <head>
     <meta charset="utf-8">
@@ -11,16 +18,8 @@
     <link href="bootstrap/css/bootstrap.css" rel="stylesheet">
 	<script src="bootstrap/js/jquery.js"></script>
 	<script src="bootstrap/js/bootstrap.min.js"></script>
-	<script>
-	function EventByName(var1)
-	{
-		
-		document.getElementById("res").innerHTML=var1;
-			
-	}
+	<script src="bootstrap/js/relation.js"></script>
 	
-	
-	</script>
 	
 	
     <style type="text/css">
@@ -136,6 +135,25 @@
 		</h1>
 		
 		</div>
+		
+		<!----------------------------------displaying query result ------------------->
+		
+		
+		
+		<div id="showResult" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">  
+    
+    <div  class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+    <h3 id ="resultHeader">Query Result</h3>
+    </div>
+     <div id="putResult" class="modal-body">
+     		
+	</div>
+    <div class="modal-footer">
+    
+    </div>
+    </div>
+		
 		
 
 		<!---------------------------------tags------------------------------------>

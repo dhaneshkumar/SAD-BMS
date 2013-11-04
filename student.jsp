@@ -11,16 +11,6 @@
     <link href="bootstrap/css/bootstrap.css" rel="stylesheet">
 	<script src="bootstrap/js/jquery.js"></script>
 	<script src="bootstrap/js/bootstrap.min.js"></script>
-	<script>
-	function EventByName(var1)
-	{
-		
-		document.getElementById("res").innerHTML=var1;
-			
-	}
-	
-	
-	</script>
 	
 	
     <style type="text/css">
@@ -146,6 +136,7 @@
 				<li class="dropdown" >
 						<a class="dropdown-toggle" data-toggle="dropdown" href="#">Interests<b class="caret"></b></a>
 						<ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+							<li style="display:table"><a href="#myModa211" data-toggle="modal">My Clubs & Activities</a></li>
 							<li style="display:table"><a href="#myModal8" data-toggle="modal">Join Clubs</a></li>
 							<li style="display:table"><a href="#myModal9" data-toggle="modal">Like Sports Activities</a></li>
 							<li style="display:table"><a href="#myModal10" data-toggle="modal">Like Cult. Activities</a></li>
@@ -402,6 +393,35 @@
 </div>
 	  
 <!------------------------Interests--------------------------------------------->
+
+
+<div id="myModa211" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display:none">  
+	<div class="modal-dialog">	
+	<div class="modal-content">
+		<div class="modal-header">
+		<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+		<h3>My Clubs</h3>
+		</div>
+		<div class="modal-body">
+	 		<form class="form-horizontal" role="form">
+	  			<div class="form-group">
+	 				<label for="clubName8" class="col-lg-4 control-label">Club Name &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+	 				<div class="col-lg-8">
+ 						<select id="clubName8">
+ 							<option>1</option>
+ 							<option>2</option>
+ 						</select>
+	 				</div>
+	 				</br> 
+	 			</div> 
+ 			</form>
+		</div>
+		<div class="modal-footer">
+			<a href="#" class="btn btn-primary">Join</a>
+		</div>
+	</div>
+	</div>
+</div>	  
 
 
 <div id="myModal8" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display:none">  

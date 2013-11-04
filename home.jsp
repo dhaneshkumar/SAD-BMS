@@ -40,7 +40,7 @@
 			
 			</td>
 			
-			<td id="res"> <h3 align="center">  All Upcoming Events</h3>
+			<td id="result"> <h3 align="center">  All Upcoming Events</h3>
 			</td>
 				
 	<!---------------------------------------------Query-------------------------------------------------->			
@@ -49,7 +49,8 @@
 			
 			
 				
-
+	<!-----Query 11 ----------< SEARCH UPCOMING EVENTS BY NAME >-------------->
+	
 			<div class="accordion" id="accordion2">
 				<div class="accordion-group">
 					<div class="accordion-heading">
@@ -59,17 +60,27 @@
 					</div>
 					<div id="collapseOne" class="accordion-body collapse in">
 					  <div class="accordion-inner form-inline">	
-						<select>
-							<option>1</option>
-							  <option>2</option>
-							  <option>3</option>
-							  <option>4</option>
-							  <option>5</option>
+						<select id="11">
+					
+					
+					<%
+					//dropdown for UpcoMing events
+					String[] result=node.loadUpcomingEvent().split(",");
+					for(int i=0;i<result.length;i++)
+					{
+						out.println("<option>" + result[i] +"</option>");
+					}
+					
+					%>	
+						
+							
 						</select>
-						<button type="submit" class="btn">Submit</button>
+						<a  href="#showResult"  role="button " class=" btn btn-success pull-right" data-toggle="modal"  type="submit" onclick="callbackend(11)">Submit</a>
 					  </div>
 					</div>
 				</div>
+			
+	<!-----Query 12 ----------< VIEW RESULT OF EVENTS >--------------------------------------->		
 				
 			  <div class="accordion-group">
 				<div class="accordion-heading">
@@ -79,17 +90,22 @@
 				</div>
 				<div id="collapseTwo" class="accordion-body collapse">
 				  <div class="accordion-inner form-inline">
-					<select>
-							<option>1</option>
-							  <option>2</option>
-							  <option>3</option>
-							  <option>4</option>
-							  <option>5</option>
+					<select id="12">
+		<%
+					//dropdown for UpcoMing events
+					String[] result1=node.loadPastEvent().split(",");
+					for(int i=0;i<result1.length;i++)
+					{
+						out.println("<option>" + result1[i] +"</option>");
+					}
+					
+		%>	
 						</select>
-						<button type="submit" class="btn">Submit</button>
-				  </div>
+						<a  href="#showResult"  role="button " class=" btn btn-success pull-right" data-toggle="modal"  type="submit" onclick="callbackend(12)">Submit</a>
+					  </div>
 				</div>
 			  </div>
+			  
 			  
 			  <div class="accordion-group">
 				<div class="accordion-heading">
