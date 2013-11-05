@@ -10,3 +10,14 @@ function callbackend(var1)
 	
 }
 
+function callNoSelection(var1)
+{			  
+	 var v1 = document.getElementById(var1).innerHTML;
+	 
+	 document.getElementById("resultHeader").innerHTML=v1;
+       
+	$.get( "backend.jsp", { type: var1, name: v1 }, function(result){
+		$("#putResult").html(result);
+	});
+	
+}

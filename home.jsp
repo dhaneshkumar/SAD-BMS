@@ -106,7 +106,7 @@
 				</div>
 			  </div>
 			  
-			  
+	<!-----Query 13 ----------< VIEW  EVENTS BY GENRE>--------------------------------------->				  
 			  <div class="accordion-group">
 				<div class="accordion-heading">
 				  <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseThree">
@@ -115,26 +115,31 @@
 				</div>
 				<div id="collapseThree" class="accordion-body collapse">
 				  <div class="accordion-inner form-inline">
-					<select>
-							<option>1</option>
-							  <option>2</option>
-							  <option>3</option>
-							  <option>4</option>
-							  <option>5</option>
+					<select id="13">
+		<%
+				 result1=node.loadEventByGenre().split(",");
+					for(int i=0;i<result1.length;i++)
+					{
+						out.println("<option>" + result1[i] +"</option>");
+					}
+		%>					
 						</select>
-						<button type="submit" class="btn">Submit</button>
-				  </div>
+						<a  href="#showResult"  role="button " class=" btn btn-success pull-right" data-toggle="modal"  type="submit" onclick="callbackend(13)">Submit</a>
+					  </div>
 				</div>
 			  </div>
 			  
+			  
+	<!-----Query 14 ----------< CURRENT HOSTEL STANDING >--------------------------------------->			
 			  <div class="accordion-group">
 				<div class="accordion-heading">
-				  <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#tally">
-					Current Hostel Standing
-				  </a>
+				  <a id="14" href="#showResult" class="accordion-toggle" data-toggle="modal"  type="submit" onclick="callNoSelection(14)" data-parent="#accordion2" >
+					Current Hostel Standing</a>
 				</div>
 			  </div>
 			  
+			  
+	<!-----Query 15 ----------< VENUE DETAILS >--------------------------------------->			
 			  <div class="accordion-group">
 				<div class="accordion-heading">
 				  <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapse4">
@@ -143,28 +148,37 @@
 				</div>
 				<div id="collapse4" class="accordion-body collapse">
 				  <div class="accordion-inner form-inline">
-					<select>
-							<option>1</option>
-							  <option>2</option>
-							  <option>3</option>
-							  <option>4</option>
-							  <option>5</option>
+					<select id="15">
+		<%
+				 result1=node.loadVenue().split(",");
+					for(int i=0;i<result1.length;i++)
+					{
+						out.println("<option>" + result1[i] +"</option>");
+					}
+		%>
 						</select>
-						<button type="submit" class="btn">Submit</button>
-				  </div>
+						<a  href="#showResult"  role="button " class=" btn btn-success pull-right" data-toggle="modal"  type="submit" onclick="callbackend(15)">Submit</a>
+					  </div>
 				</div>
 			  </div>
 			  
-			  
+	<!-----Query 16 ----------< SHOW COUNCIL >--------------------------------------->			
 			  <div class="accordion-group">
 				<div class="accordion-heading">
-				  <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#council">
+				  <a id="16" href="#showResult" class="accordion-toggle" data-toggle="modal"  type="submit" onclick="callNoSelection(16)" data-parent="#accordion2" >
 					Show Council
 				  </a>
 				</div>
 			  </div>
 			  
-			  
+	<!-----Query 17----------< SHOW CLUBS >--------------------------------------->			
+			  <div class="accordion-group">
+				<div class="accordion-heading">
+				  <a id="17" href="#showResult" class="accordion-toggle" data-toggle="modal"  type="submit" onclick="callNoSelection(17)" data-parent="#accordion2" >
+					Show Clubs
+				  </a>
+				</div>
+			  </div>	  
 			  
 			  
 			</div>	
